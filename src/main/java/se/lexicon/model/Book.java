@@ -58,9 +58,13 @@ public class Book {
         setAvailable(borrower == null);
     }
 
+    public String toString() {
+        return getBookInformation();
+    }
+
     public String getBookInformation() {
-        return String.format("Title: %s, author: %s, available: %b, borrower: (%s)",
+        return String.format("Title: %s, author: %s, available: %b, borrower id: %s",
                 getTitle(), getAuthor(), isAvailable(),
-                getBorrower() == null ? "none" : getBorrower().getPersonInformation());
+                getBorrower() == null ? "none" : getBorrower().getId());
     }
 }

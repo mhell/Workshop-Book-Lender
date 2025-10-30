@@ -72,9 +72,11 @@ public class Person {
             }
         }
         // if successfully found and removed the book...
-        if (newBorrowed.length < borrowed.length) {
+        if (newBorrowed[newBorrowed.length-1] == null) {
             // remove borrower from the book (sets it to available)
             book.setBorrower(null);
+            // change length of newBorrowed -1
+            newBorrowed = Arrays.copyOf(newBorrowed, newBorrowed.length-1);
             // reassign the borrowed array
             borrowed = newBorrowed;
         // else throw an exception (the book was never borrowed)

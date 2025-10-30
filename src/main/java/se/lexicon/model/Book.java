@@ -63,8 +63,8 @@ public class Book {
     }
 
     public String getBookInformation() {
-        return String.format("Title: %s, author: %s, available: %b, borrower id: %s",
-                getTitle(), getAuthor(), isAvailable(),
+        return String.format("Book ID: %s, title: %s, author: %s, available: %b, borrower ID: %s",
+                getId(), getTitle(), getAuthor(), isAvailable(),
                 getBorrower() == null ? "none" : getBorrower().getId());
     }
 }

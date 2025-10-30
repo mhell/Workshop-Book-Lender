@@ -87,6 +87,9 @@ public class Person {
 
     public String getPersonInformation() {
         return String.format("Person ID: %d, First name: %s, last name: %s, borrowed: %s",
-                getId(), getFirstName(), getLastName(), Arrays.toString(getBorrowed()));
+                getId(),
+                getFirstName(),
+                getLastName(),
+                getBorrowed().length == 0 ? "none" : Arrays.toString(getBorrowed()));
     }
 }

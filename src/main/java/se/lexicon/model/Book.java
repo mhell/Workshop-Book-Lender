@@ -59,7 +59,7 @@ public class Book {
     }
 
     public String toString() {
-        return getBookInformation();
+        return getId();
     }
 
     public String getBookInformation() {

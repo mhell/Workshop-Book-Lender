@@ -65,7 +65,7 @@ public class Person {
         Book[] newBorrowed = new Book[borrowed.length];
         // copy all elements of borrowed except this book
         for (int i=0, j=0; i < borrowed.length; i++) {
-            // copy all elements from borrowed, except if element.id == book.id
+            // copy all elements unless element.id == book.id
             if (!borrowed[i].getId().equals(book.getId())) {
                 newBorrowed[j] = borrowed[i];
                 j++;
@@ -75,7 +75,7 @@ public class Person {
         if (newBorrowed[newBorrowed.length-1] == null) {
             // remove borrower from the book (sets it to available)
             book.setBorrower(null);
-            // change length of newBorrowed -1
+            // decrease length of newBorrowed -1
             newBorrowed = Arrays.copyOf(newBorrowed, newBorrowed.length-1);
             // reassign the borrowed array
             borrowed = newBorrowed;

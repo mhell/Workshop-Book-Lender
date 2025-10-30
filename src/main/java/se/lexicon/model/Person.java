@@ -85,6 +85,10 @@ public class Person {
         }
     }
 
+    public String toString() {
+        return getPersonInformation();
+    }
+
     public String getPersonInformation() {
         return String.format("Person ID: %d, First name: %s, last name: %s, borrowed: %s",
                 getId(), getFirstName(), getLastName(),

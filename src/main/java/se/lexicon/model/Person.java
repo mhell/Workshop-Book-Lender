@@ -63,7 +63,7 @@ public class Person {
 
     public void returnBook (Book book) {
         Book[] newBorrowed = new Book[borrowed.length];
-        // create a new array without this book
+        // copy all elements of borrowed except this book
         for (int i=0, j=0; i < borrowed.length; i++) {
             // copy all elements from borrowed, except if element.id == book.id
             if (!borrowed[i].getId().equals(book.getId())) {
@@ -71,11 +71,11 @@ public class Person {
                 j++;
             }
         }
-        // if successfully removed the book
+        // if successfully found and removed the book...
         if (newBorrowed.length < borrowed.length) {
             // remove borrower from the book (sets it to available)
             book.setBorrower(null);
-            // reassign borrowed array
+            // reassign the borrowed array
             borrowed = newBorrowed;
         // else throw an exception (the book was never borrowed)
         } else {

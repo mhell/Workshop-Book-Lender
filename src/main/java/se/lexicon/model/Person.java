@@ -1,6 +1,7 @@
 package se.lexicon.model;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Person {
     private static int sequencer = 0;
@@ -62,26 +63,27 @@ public class Person {
     }
 
     public void returnBook (Book book) {
-        Book[] newBorrowed = new Book[borrowed.length];
-        // copy all elements of borrowed except this book
-        for (int i=0, j=0; i < borrowed.length; i++) {
-            // copy all elements unless element.id == book.id
-            if (!borrowed[i].getId().equals(book.getId())) {
-                newBorrowed[j] = borrowed[i];
-                j++;
-            }
-        }
-        // if successfully found and removed the book...
-        if (newBorrowed[newBorrowed.length-1] == null) {
+        // search borrowed books for 'book'. Needs to sorted
+        Arrays.sort(borrowed, Comparator.comparing(Book::getId));
+        int foundPos = Arrays.binarySearch(borrowed, book, Comparator.comparing(Book::getId));
+
+        // if not found, throw an exception (the book was never borrowed)
+        if (foundPos < 0) {
+            throw new RuntimeException("Book was not borrowed");
+        } else {
             // remove borrower from the book (sets it to available)
             book.setBorrower(null);
-            // decrease length of newBorrowed -1
-            newBorrowed = Arrays.copyOf(newBorrowed, newBorrowed.length-1);
-            // reassign the borrowed array
-            borrowed = newBorrowed;
-        // else throw an exception (the book was never borrowed)
-        } else {
-            throw new RuntimeException("Book was not borrowed");
+            // create a new borrowed array without the returned book
+            Book[] newBorrowed = Arrays.copyOf(borrowed, borrowed.length - 1);
+            // if found at the end, just reassign borrowed to the new array
+            if (foundPos == borrowed.length - 1) {
+                setBorrowed(newBorrowed);
+            } else {
+                // remove found book from newBorrowed by merging with offset
+                System.arraycopy(borrowed, foundPos + 1, newBorrowed, foundPos, borrowed.length - foundPos);
+                // reassign borrowed
+                setBorrowed(newBorrowed);
+            }
         }
     }
 

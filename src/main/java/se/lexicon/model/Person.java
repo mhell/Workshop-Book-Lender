@@ -73,7 +73,7 @@ public class Person {
         } else {
             // remove borrower from the book (sets it to available)
             book.setBorrower(null);
-            // create a new borrowed array without the returned book
+            // create a new borrowed array with -1 length
             Book[] newBorrowed = Arrays.copyOf(borrowed, borrowed.length - 1);
             // if found at the end, just reassign borrowed to the new array
             if (foundPos == borrowed.length - 1) {
